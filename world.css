@@ -77,7 +77,7 @@ main::before{
 }
 
 #country:focus {
-    outline: 10px solid #a8643a;
+    outline: 2px solid #a8643a;
     outline-offset: 1px;
 }
 
@@ -100,14 +100,42 @@ button {
     background: #15963c;
 }
 
-#button:focus-visible {
-    outline: 2px solid #34291f;
-    outline-offset: 2px;
-}
-
 #result {
     margin-top: 1.5rem;
     max-height: 450px;
     overflow-y: auto;
     overflow-x: auto;
+    background-color: #fbf8f1;
+    border: 1px solid #cfc3a6;
+    border-radius: 8px;
+}
+
+#result p{
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+}
+
+#result table{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#result th, #result td{
+    padding: 12px 16px;
+    text-align: left;
+    border: 1px solid #cfc3a6;
+}
+
+#result th{
+    position: sticky;
+    top: 0;
+    background-color: #15963c;
+    color: #fbf8f1;
+    font-size: 15px;
+    letter-spacing: 0.5px;
+}
+
+#result tr:hover td{
+    background-color: #eaf5ec;
 }
