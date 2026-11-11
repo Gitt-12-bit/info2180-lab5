@@ -6,12 +6,43 @@ $dbname = 'world';
 
 $conn = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
 $country = $_GET['country'] ?? '';
-$stmt = $conn->prepare("SELECT * FROM countries WHERE name LIKE '%$country%'");
-$stmt->execute();
+$lookup = $_GET['lookup'] ?? '';
 
+if ($lookup === 'cities'){
+  $stmt = $conn->prepare("SELECT c.name, c.district, c.population FROM cities c 
+  JOIN countries cs ON c.country_code = cs.code WHERE cs.name LIKE :country 
+  ORDER BY c.population DESC");
+}
+else {
+  $stmt = $conn->prepare("SELECT * FROM countries WHERE name LIKE :country");
+}
+
+$stmt->execute(['country' => "%$country%"]);
 $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
 ?>
+
+<?php if ($lookup === 'cities'): //chooses which query to run?> 
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>District</th>
+      <th>Population</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <?php foreach ($results as $row): ?>
+      <tr>
+        <td><?= htmlspecialchars($row['name']) ?></td>
+        <td><?= htmlspecialchars($row['district']) ?></td>
+        <td><?= htmlspecialchars($row['population']) ?></td>
+      </tr>
+    <?php endforeach; ?>
+  </tbody>
+</table>
+
+<?php else: ?>
 
 <table>
   <thead>
@@ -35,5 +66,6 @@ $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
   </tbody>
 </table>
 
+<?php endif; ?>
       
       

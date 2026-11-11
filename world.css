@@ -100,6 +100,14 @@ button {
     background: #15963c;
 }
 
+#city-lookup {
+    background: #1e3ba1;
+}
+
+#city-lookup:hover {
+    background: #1c0e6a;
+}
+
 #result {
     margin-top: 1.5rem;
     max-height: 450px;
